@@ -1,13 +1,50 @@
-import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import styles from './page.module.css'
+import Navbar from '@/components/navbar'
+import ProjectItem from '@/components/project_item'
+import Link from 'next/link'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
+    <main className={styles.center+"ml-16 mr-16 absolute flex flex-col justify-center"}>
+        <section className='w-full flex h-[88vh]'>
+          <div className='flex justify-center items-center'>
+            <div className='mx-14 text-white'>
+              <div className='text-5xl'>CREATE AND CONSUME BOOKS LIKE NEVER BEFORE</div>
+              <div className='text-lg'>Revolutionize Your Reading Experience with Blockchain-Backed Book Creation and Reading Platform </div>
+            </div>
+          </div>
+          <div className='md:flex justify-center mx-5 items-center'>
+            <img src="/homeillu.jpg" width={500} height={500} alt="My Image" />
+          </div>
+        </section>
+        <section>
+          <div className='flex justify-between my-2'>
+            <div>
+
+            <h1 className='text-2xl'>Popular Projects</h1><hr className='w-10' />
+            </div>
+            <Link href='/projects'>
+              <span>see more</span>
+            </Link>
+          </div>
+          <div className='grid grid-cols-3 mx-8'>
+            <ProjectItem />
+            <ProjectItem />
+            <ProjectItem />
+          </div>
+          {/* <div className='flex justify-end'>
+            
+          </div> */}
+        </section>
+        <footer className='flex justify-center mt-10'>
+          <div>
+            &#169; antoni
+          </div>
+        </footer>
+      {/* <div className={styles.description}>
         <p>
           Get started by editing&nbsp;
           <code className={styles.code}>app/page.tsx</code>
@@ -85,7 +122,7 @@ export default function Home() {
             Instantly deploy your Next.js site to a shareable URL with Vercel.
           </p>
         </a>
-      </div>
+      </div> */}
     </main>
   )
 }
