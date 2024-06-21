@@ -1,4 +1,5 @@
 import Navbar from '@/components/navbar'
+import ProjectProviders from '@/providers/project_providers'
 import './globals.css'
 
 export const metadata = {
