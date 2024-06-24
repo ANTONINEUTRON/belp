@@ -1,46 +1,38 @@
-import Image from 'next/image'
+import Project from '@/data/project_model';
 import Link from 'next/link';
-import ProjectTags from './project_tags';
+import { ProjectTagSet } from './project_tags';
 
-const ProjectItem = ()=>{
+interface ProjectItemProps{
+    project: Project,
+}
+
+const ProjectItem: React.FC<ProjectItemProps> = ({project})=>{
+    const profile = project.profile;
+
     return (
-        <Link href='/projects/uu'>
+        <Link href={"/projects/"+project.id}>
             <div className='border rounded-lg m-2 my-4 p-4'>
-                <Image
-                    src="/bitcoin_img.svg"
-                    alt="Bitcoin Logo"
-                    // className={styles.vercelLogo}
-                    width={200}
-                    height={30}
-                    priority
-                    className='mb-5 m-1'
-                    />
-
+                <div className='w-32 h-32 flex justify-center items-center'>
+                    <img
+                        src={profile.logo}
+                        alt={profile.name+" Logo"}
+                        width={120}
+                        height={120}
+                        className='mb-5 m-1 '
+                        />
+                </div>
                 <div className='flex md:justify-between'>
                     <span className='font-semibold text-lg'>
-                        Bitcoin
+                        {profile?.name}
                     </span>
                     <span  className='font-light text-sm'>BTC</span>
                 </div>
 
                 <div className='line-clamp-2 my-2'>
-                    The tagline which can be usually semi long but shouldn't exceed two lines but if it do it'll be clamped
+                    {profile?.descriptionShort}
                 </div>
 
-                <div className='flex flex-wrap'>
-                    <ProjectTags 
-                        title='Sector'
-                        content='Fiannce'/>
-                    <ProjectTags 
-                        title='Profile Type'
-                        content='project'/>
-                    <ProjectTags 
-                        title='status'
-                        content='Active'/>
-                    <ProjectTags 
-                        title='Main Product Type'
-                        content='Internet of things'/>
-                </div>
+                <ProjectTagSet project={project} />
                 
 
             </div>
@@ -48,5 +40,6 @@ const ProjectItem = ()=>{
         
     );
 }
+
 
 export default ProjectItem;

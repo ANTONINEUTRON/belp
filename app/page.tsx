@@ -33,9 +33,9 @@ export default function Home() {
               </Link>
             </div>
             <div className='grid grid-cols-3 mx-8'>
+              {/* <ProjectItem />
               <ProjectItem />
-              <ProjectItem />
-              <ProjectItem />
+              <ProjectItem /> */}
             </div>
             {/* <div className='flex justify-end'>
               

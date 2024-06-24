@@ -1,6 +1,6 @@
 "use client"
 
-import getProjects from "@/data/product_repo";
+import getProjectsFromApi from "@/data/product_repo";
 import Project from "@/data/project_model";
 import { ReactNode, useLayoutEffect, useState } from "react";
 import ProjectContext, { ProjectContextProps } from "./project_context";
@@ -10,20 +10,39 @@ interface ProjectProvidersProps{
 }
 
 const ProjectProviders: React.FC<ProjectProvidersProps> = ({children})=>{
-    // const [projects, setProjects] = useState<Project[] | null>(null)
-    // const [error, setErrorMessage] = useState<string | null>(null);
-    const [stateData, setStateData] = useState<ProjectContextProps>({
-        projects: null,
-        errorMessage: null,
-        fetchProject: null,
-        searchForProject: null,
-    });
+    const [projects, setProjects] = useState<Project[] | null>(null)
+    const [error, setErrorMessage] = useState<string | null>(null);
+    const stateData: ProjectContextProps = {
+        projects: projects,
+        errorMessage: error,
+        setErrorMessage: setErrorMessage,
+        setProjects: setProjects,
+    };
 
-    const fetchInitialProjects = ()=>{
+    const fetchInitialProjects = async()=>{
         try {
-            getProjects();
-        } catch (error) {
-            console.error(error);
+            let projects: Project[] = await getProjectsFromApi();
+            console.log("PROJECTS gotten");
+            console.log(projects);
+            let upda = {
+                ...stateData,
+                projects: projects,
+                errorMessage: null,
+            };
+            setProjects(projects);
+            // setStateData({
+            //     ...stateData,
+            //     projects: projects,
+            //     errorMessage: null,
+            // });
+            console.log(upda);
+        } catch (err) {
+            setErrorMessage("An error occured while fetching projects");
+            // setStateData({
+            //     ...stateData,
+            //     errorMessage: "An error occured while fetching projects",
+            // });
+            console.error(err);
         }
     }
 
