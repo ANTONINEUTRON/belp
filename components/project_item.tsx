@@ -21,11 +21,11 @@ const ProjectItem: React.FC<ProjectItemProps> = ({project})=>{
                         className='mb-5 m-1 '
                         />
                 </div>
-                <div className='flex md:justify-between'>
+                <div className='flex '>
                     <span className='font-semibold text-lg'>
                         {profile?.name}
                     </span>
-                    <span  className='font-light text-sm'>BTC</span>
+                    {/* <span  className='font-light text-sm'>{profile?.assets}</span> */}
                 </div>
 
                 <div className='line-clamp-2 my-2'>

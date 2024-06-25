@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import Project from "@/data/project_model";
 import { getAProject } from "@/data/product_repo";
 import { ProjectTagSet } from "@/components/project_tags";
+import { MdRateReview } from "react-icons/md";
 
 const OpenProjects = ({ params }: { params: { id: string } })=>{
     const [project, setProject] = useState<Project | null>(null);
@@ -34,11 +35,6 @@ const OpenProjects = ({ params }: { params: { id: string } })=>{
                             <img
                                 src={project?.profile.logo}
                                 alt="Project Logo"
-                                // className={styles.vercelLogo}
-                                // width={140}
-                                // height={140}
-                                // priority
-                                // className='mb-5'
                                 />
                         </div>
                         
@@ -76,8 +72,13 @@ const OpenProjects = ({ params }: { params: { id: string } })=>{
 
             {/* Reviews here */}
             <div className="mt-8">
-                <div className="font-bold text-2xl">
-                    Reviews
+                <div>
+                    <div className="font-bold text-2xl">
+                        Reviews
+                    </div>
+                    <div>
+                        <MdRateReview />
+                    </div>
                 </div>
                 <div>
                     <ReviewItem />

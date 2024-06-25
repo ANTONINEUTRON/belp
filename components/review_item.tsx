@@ -1,6 +1,7 @@
 import { IoPersonCircle } from "react-icons/io5";
 import { FaReply,FaShare } from "react-icons/fa6";
 import { SlLike } from "react-icons/sl";
+import { PiTipJarFill } from "react-icons/pi";
 
 const ReviewItem = ()=>{
     return (
@@ -20,10 +21,16 @@ const ReviewItem = ()=>{
             <div>Easy to check out rates and pick a supplier for your utility's , definitely recommend</div>
             
             <hr className="mt-6 mb-2"/>
+
             <div className="flex">
                 <button className="flex border p-1 m-2 rounded-lg items-center">
                     <SlLike className="mr-2"/>
                     helpful
+                </button>
+
+                <button className=" flex border p-1 m-2 rounded-lg items-center">
+                    <PiTipJarFill  className="mr-2"/>
+                    tip
                 </button>
 
                 <button className="flex border p-1 m-2 rounded-lg items-center">

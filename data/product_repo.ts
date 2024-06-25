@@ -8,15 +8,23 @@ interface getProductsProps{
 
 const BASE_URL = "https://cors-anywhere.herokuapp.com/https://fetch.thegrid.id";
 
-const getProjectsFromApi = async(): Promise<Project[]> => {
-    // let idsToFetch = "ID-01,ID-02,ID-03,ID-04,ID-05,ID-06,ID-07,ID-08,ID-09,ID-10";
-    // const url = "https://cors-anywhere.herokuapp.com/https://fetch.thegrid.id/?ids=ID-01,ID-02,ID-03,ID-04,ID-05,ID-06,ID-07,ID-08,ID-09,ID-10";//"https://fetch.thegrid.id/?ids=" + idsToFetch;
-    // // console.log(url);
-    // let res = await axios.get(url);
+const getProjectsFromApi = async(projectIDS: String[] = []): Promise<Project[]> => {
+    if(projectIDS.length === 0){
+        // let idsToFetch = "ID-01,ID-02,ID-03,ID-04,ID-05,ID-06,ID-07,ID-08,ID-09,ID-10";
+        // const url = "https://cors-anywhere.herokuapp.com/https://fetch.thegrid.id/?ids=ID-01,ID-02,ID-03,ID-04,ID-05,ID-06,ID-07,ID-08,ID-09,ID-10";//"https://fetch.thegrid.id/?ids=" + idsToFetch;
+        // // console.log(url);
+        // let res = await axios.get(url);
 
-    // console.log(res.data.body);
-    // let res = await 
-    return getAllProjs();//res.data.body; 
+        // console.log(res.data.body);
+        // let res = await 
+        return getAllProjs();//res.data.body; 
+    }
+
+    return getAllProjs().filter((value, index, array)=>{
+        console.log(projectIDS[index] == value.id);
+        
+        return value.id == projectIDS[index];
+    });
 }
 
 export const getAProject = async(projectId: String) : Promise<Project>=>{

@@ -16,7 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <AppWalletProviders>
-      <ProjectProviders>
+      {/* <ProjectProviders> */}
         <html lang="en">
           <body className="m-auto mt-4">
 
@@ -24,7 +24,7 @@ export default function RootLayout({
             <div className='container m-auto'>{children}</div>
           </body>
         </html>
-      </ProjectProviders>
+      {/* </ProjectProviders> */}
     </AppWalletProviders>
   )
 }

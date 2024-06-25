@@ -22,7 +22,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="container flex items-center justify-between m-auto">
+      <nav className="h-14 fixed top-4 left-10 right-10 container flex items-center justify-between">
             <Link
               className="text-xl font-bold leading-relaxed flex items-center uppercase text-white"
               href="/">

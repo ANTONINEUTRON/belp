@@ -1,12 +1,37 @@
+"use client"
 import { Inter } from 'next/font/google'
 import styles from './page.module.css'
 import Navbar from '@/components/navbar'
 import ProjectItem from '@/components/project_item'
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
+import Project from '@/data/project_model'
+import getProjectsFromApi from '@/data/product_repo'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+  const [projects, setProjects] = useState<Project[] | null>(null);
+  const [errorMsg, setErrorMsg] = useState<String>("");
+  // const []
+
+  useEffect(()=>{
+      try {
+          getProjectsFromApi(["ID-1","ID-2","ID-3"]).then(
+              (projectsss)=>{
+                console.log(projectsss);
+                
+                  setProjects(projectsss);
+              }
+          );
+      } catch (error) {
+          setErrorMsg("An error occured while fetching projects");
+          console.log(error);
+      }
+  },[]);
+  // 
+
+
   return (
         <main className={styles.center+"ml-16 mr-16 absolute flex flex-col justify-center"}>
             <section className='w-full flex h-[88vh]'>
@@ -20,25 +45,37 @@ export default function Home() {
                 <img src="/homeillu.jpg" width={500} height={500} alt="My Image" />
               </div>
             </section>
-            <section>
-              <div className='flex justify-between my-2'>
-                <div>
-
-                <h1 className='text-2xl'>Popular Projects</h1><hr className='w-10' />
-                </div>
-                <Link href='/projects'>
-                  <span>see more</span>
-                </Link>
-              </div>
-              <div className='grid grid-cols-3 mx-8'>
-                {/* <ProjectItem />
-                <ProjectItem />
-                <ProjectItem /> */}
-              </div>
+            
+              
+              {projects && (
+                <section>
+                    <div className='flex justify-between my-2 items-center'>
+                      <div>
+                        <h1 className='text-2xl'>Top Projects</h1><hr className='w-10' />
+                      </div>
+                      <Link href='/projects'>
+                        <span className='text-tertiary'>see more</span>
+                      </Link>
+                    </div>
+                    <div className='grid grid-cols-3 mx-5'>
+                      {
+                        projects.map((value, index)=>
+                          (
+                            <div>
+                              <ProjectItem 
+                                project={value}/>
+                            </div>
+                          )
+                        )
+                      }
+                    </div>
+                </section>
+              )}
+              
               {/* <div className='flex justify-end'>
                 
               </div> */}
-            </section>
+            {/* </section> */}
             <footer className='flex justify-center mt-10'>
               <div>
                 &#169; antoni
