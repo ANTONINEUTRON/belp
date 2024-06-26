@@ -21,8 +21,8 @@ export default function Navbar() {
 
 
   return (
-    <>
-      <nav className="h-14 fixed top-4 left-10 right-10 container flex items-center justify-between">
+    <div className=' fixed top-0 left-0 right-0 bg-primary flex justify-center'>
+      <nav className="h-14 container flex items-center justify-between">
             <Link
               className="text-xl font-bold leading-relaxed flex items-center uppercase text-white"
               href="/">
@@ -30,10 +30,10 @@ export default function Navbar() {
               Belp
               </Link>
               <input className='w-2/5 border p-1 rounded-lg' placeholder='Search a blockchain project'/>
-            <WalletButton />
+              <WalletButton />
         
       </nav>
-    </>
+    </div>
   );
 }
 

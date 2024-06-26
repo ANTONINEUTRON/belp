@@ -1,7 +1,6 @@
 "use client"
-import FloatingActionButton from "@/components/floating_action_button";
+
 import ReviewItem from "@/components/review_item";
-import Image from 'next/image'
 import { FaGlobe } from "react-icons/fa";
 import { GrDocumentText } from "react-icons/gr";
 import Link from "next/link";
@@ -10,6 +9,7 @@ import Project from "@/data/project_model";
 import { getAProject } from "@/data/product_repo";
 import { ProjectTagSet } from "@/components/project_tags";
 import { MdRateReview } from "react-icons/md";
+import CommentBox, { AddCommentButton } from "@/components/comment_box";
 
 const OpenProjects = ({ params }: { params: { id: string } })=>{
     const [project, setProject] = useState<Project | null>(null);
@@ -76,9 +76,9 @@ const OpenProjects = ({ params }: { params: { id: string } })=>{
                     <div className="font-bold text-2xl">
                         Reviews
                     </div>
-                    <div>
+                    {/* <div>
                         <MdRateReview />
-                    </div>
+                    </div> */}
                 </div>
                 <div>
                     <ReviewItem />
@@ -87,8 +87,9 @@ const OpenProjects = ({ params }: { params: { id: string } })=>{
                 </div>
             </div>
 
-            <FloatingActionButton/>
-                
+            <AddCommentButton
+                projectId={params.id}/>
+
             {/* </FloatingActionButton> */}
         </div>
     );
