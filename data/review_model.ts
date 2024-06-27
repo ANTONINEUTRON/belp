@@ -7,4 +7,5 @@ export interface Review{
     likes: number;
     tips: number;
     responses: Object;
+    created_at: string;
 }

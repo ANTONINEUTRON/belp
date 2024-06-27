@@ -10,6 +10,8 @@ import { getAProject } from "@/data/product_repo";
 import { ProjectTagSet } from "@/components/project_tags";
 import { MdRateReview } from "react-icons/md";
 import CommentBox, { AddCommentButton } from "@/components/comment_box";
+import ReviewSection from "@/components/review_section";
+import ReviewProvider from "@/providers/review_provider";
 
 const OpenProjects = ({ params }: { params: { id: string } })=>{
     const [project, setProject] = useState<Project | null>(null);
@@ -80,15 +82,15 @@ const OpenProjects = ({ params }: { params: { id: string } })=>{
                         <MdRateReview />
                     </div> */}
                 </div>
-                <div>
-                    <ReviewItem />
-                    <ReviewItem />
-                    <ReviewItem />
-                </div>
+
+                <ReviewProvider>
+                    <ReviewSection />
+                </ReviewProvider>
+                
             </div>
 
             <AddCommentButton
-                projectId={params.id}/>
+                projectId={params.id} />
 
             {/* </FloatingActionButton> */}
         </div>
