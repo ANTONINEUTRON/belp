@@ -34,8 +34,8 @@ export default function Home() {
 
 
   return (
-        <main className={styles.center+"ml-16 mr-16 absolute flex flex-col justify-center"}>
-            <section className='w-full flex h-[88vh]'>
+        <main className={styles.center+"ml-16 mr-16 mt-10 flex flex-col justify-center"}>
+            <section className='w-full flex h-[87vh]'>
               <div className='flex justify-center items-center'>
                 <div className='mx-14 text-white'>
                   <div className='text-5xl'>CREATE AND CONSUME BOOKS LIKE NEVER BEFORE</div>
@@ -52,7 +52,8 @@ export default function Home() {
                 <section>
                     <div className='flex justify-between my-2 items-center'>
                       <div>
-                        <h1 className='text-2xl'>Top Projects</h1><hr className='w-10' />
+                        <h1 className='text-2xl'>Top Projects</h1>
+                        <hr className='w-10' />
                       </div>
                       <Link href='/projects'>
                         <span className='text-tertiary'>see more</span>

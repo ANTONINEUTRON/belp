@@ -7,6 +7,7 @@ import { FaBars } from 'react-icons/fa';
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 import { useState } from "react";
+import SearchField from './search_field';
 
 export default function Navbar() {
   const [navbarOpen, setNavbarOpen] = useState(false);
@@ -28,10 +29,9 @@ export default function Navbar() {
               href="/">
               {/* <Logo /> */}
               Belp
-              </Link>
-              <input className='w-2/5 border p-1 rounded-lg' placeholder='Search a blockchain project'/>
-              <WalletButton />
-        
+            </Link>
+            <SearchField />
+            <WalletButton />
       </nav>
     </div>
   );

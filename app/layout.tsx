@@ -20,8 +20,10 @@ export default function RootLayout({
         <html lang="en">
           <body className="m-auto mt-4">
 
-          <Navbar/>
-            <div className='container m-auto'>{children}</div>
+            <Navbar/>
+            <div className='container m-auto'>
+              {children}
+            </div>
           </body>
         </html>
       {/* </ProjectProviders> */}

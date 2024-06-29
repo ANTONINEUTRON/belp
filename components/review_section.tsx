@@ -3,12 +3,12 @@ import { ReviewContext } from "@/providers/review_provider";
 import { useContext, useEffect } from "react"
 import ReviewItem from "./review_item"
 
-const ReviewSection = ()=>{
+const ReviewSection = ({projectId} : {projectId: string})=>{
     const reviewContext = useContext(ReviewContext);
     const reviews: Review[] | null | undefined = reviewContext?.reviews;
 
     useEffect(()=>{
-        reviewContext?.fetchReviews("ID-1");
+        reviewContext?.fetchReviews(projectId);
     },[]);
 
     return (
@@ -16,11 +16,17 @@ const ReviewSection = ()=>{
             
             {
                 !reviews 
-                ?(
-                    <div></div>
+                ?
+                (
+                    <div>Loading...</div>
                 )
-                : 
-                reviews!.map((value,index)=>(
+                : reviews!.length == 0 
+                ? (
+                    <div className="flex justify-center pt-5">
+                        No Reviews Yet!
+                    </div>
+                )
+                : reviews!.map((value,index)=>(
                     <div>
                         <ReviewItem
                             review={value} />

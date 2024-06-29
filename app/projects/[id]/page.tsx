@@ -78,13 +78,11 @@ const OpenProjects = ({ params }: { params: { id: string } })=>{
                     <div className="font-bold text-2xl">
                         Reviews
                     </div>
-                    {/* <div>
-                        <MdRateReview />
-                    </div> */}
                 </div>
 
                 <ReviewProvider>
-                    <ReviewSection />
+                    <ReviewSection 
+                        projectId={params.id} />
                 </ReviewProvider>
                 
             </div>

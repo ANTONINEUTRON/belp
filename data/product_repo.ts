@@ -36,6 +36,11 @@ export const getAProject = async(projectId: String) : Promise<Project>=>{
     return getAllProjs()[2];
 }
 
+export const searchForProject = async (query: string)=>{
+    //
+    //
+}
+
 function getAllProjs(): Project[]{
     return [
         {
