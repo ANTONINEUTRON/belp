@@ -39,6 +39,10 @@ export const getAProject = async(projectId: String) : Promise<Project>=>{
 export const searchForProject = async (query: string)=>{
     //
     //
+    const url = "https://cors-anywhere.herokuapp.com/https://search.thegrid.id/?q="+query;
+
+    let res = await axios.get(url);
+    console.log(res.data.body.search_result);
 }
 
 function getAllProjs(): Project[]{

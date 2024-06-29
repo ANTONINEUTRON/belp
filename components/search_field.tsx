@@ -1,11 +1,20 @@
+import { searchForProject } from "@/data/product_repo";
 import { useState } from "react";
 
 const SearchField = ()=>{
     const [isSearching, setIsSearching] = useState(false)
 
     const handleSearch = (query: string) => {
-        if(query.trim()){
+        const trimmedQuery = query.trim();
+        if(trimmedQuery){
             setIsSearching(true);
+
+            try {
+                searchForProject(trimmedQuery);
+            } catch (error) {
+                console.log(error);
+            }
+            
         }else{
             setIsSearching(false);
         }

@@ -62,3 +62,15 @@ interface Project {
 }
 
 export default Project;
+
+export interface SearchResult{
+    profiles: SearchProfiles[],
+}
+
+interface SearchProfiles{
+    id: string,
+    name: string,
+    logo: string,
+    description: string,
+    url: string,
+}
