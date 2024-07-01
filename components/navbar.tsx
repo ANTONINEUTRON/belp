@@ -22,8 +22,8 @@ export default function Navbar() {
 
 
   return (
-    <div className=' fixed top-0 left-0 right-0 bg-primary flex justify-center'>
-      <nav className="h-14 container flex items-center justify-between">
+    <div className=' fixed top-0 left-0 right-0 bg-inherit flex justify-center'>
+      <nav className="h-14 container flex items-center justify-between bg-inherit">
             <Link
               className="text-xl font-bold leading-relaxed flex items-center uppercase text-white"
               href="/">

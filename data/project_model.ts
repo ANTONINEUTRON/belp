@@ -67,7 +67,7 @@ export interface SearchResult{
     profiles: SearchProfiles[],
 }
 
-interface SearchProfiles{
+export interface SearchProfiles{
     id: string,
     name: string,
     logo: string,

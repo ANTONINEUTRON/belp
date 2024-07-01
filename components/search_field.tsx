@@ -1,41 +1,104 @@
 import { searchForProject } from "@/data/product_repo";
-import { useState } from "react";
+import { SearchProfiles, SearchResult } from "@/data/project_model";
+import Link from "next/link";
+import { FormEvent, useState } from "react";
+import { FaSearch } from "react-icons/fa";
+import { IoClose } from "react-icons/io5";
 
 const SearchField = ()=>{
-    const [isSearching, setIsSearching] = useState(false)
+    const [isSearching, setIsSearching] = useState(false);
+    const [query, setQuery] = useState("");
+    const [queryResponse, setQueryResponse] = useState<SearchProfiles[] | null>()
 
-    const handleSearch = (query: string) => {
-        const trimmedQuery = query.trim();
-        if(trimmedQuery){
+
+    const handleSearch = async (event: FormEvent)=>{
+        event.preventDefault();
+        console.log("got in");
+        
+
+        if(query.length > 2){
             setIsSearching(true);
-
             try {
-                searchForProject(trimmedQuery);
+                let results: SearchResult = await searchForProject(query.trim());
+
+                console.log("gottt in");
+                console.log(results);
+
+                setQueryResponse(results.profiles);
             } catch (error) {
                 console.log(error);
             }
-            
-        }else{
-            setIsSearching(false);
         }
+    }
 
-        console.log(query);
-      }
+    const resetSearchState =  ()=>{
+        setIsSearching(false);
+        setQuery("");
+        setQueryResponse(null);
+    }
 
     return (
-        <div className="w-2/5  bg-inherit">
-            <input 
-                className='w-full h-10 border p-1 rounded-lg' 
-                placeholder='Search a blockchain project'
-                onChange={(e) => {
-                    handleSearch(e.target.value);
-                }}/>    
+        <div className="w-2/5  bg-inherit ">
+            <div className="bg-inherit w-full border rounded-lg flex justify-between p-1 items-center">
+                <form onSubmit={(e)=>{handleSearch(e)}} className="w-full flex">
+                    <input 
+                        className='w-full h-6' 
+                        placeholder='Search a blockchain project'
+                        // prefix={}
+                        onChange={(e) => {
+                            setQuery(e.target.value);
+                        }} />
+                    <button type="submit">
+                    </button>
+                </form> 
+                
+                <div>
+                    <FaSearch />
+                </div>
+            </div>   
             {
                 isSearching && (
-                    <div className="absolute mt-2 bg-inherit p-1">
-                        Search Result here
-                    </div>
+                    queryResponse
+                        ? (
+                            <div className="absolute mt-4 rounded-xl p-3 bg-inherit w-2/5">
+                                <div className="flex justify-end">
+                                    <button onClick={()=>resetSearchState()}>
+                                        <IoClose className="text-secondary" size={40}/>
+                                    </button>
+                                </div> 
+                                {
+                                    queryResponse.map((result,index)=>(
+                                        <Link href={"/projects/"+result.id} onClick={()=>resetSearchState()}>
+                                            <div className="pt-3">
+                                                {result.logo && (
+                                                    <img 
+                                                        src={result.logo}
+                                                        width={100}
+                                                        height={100}
+                                                        className="py-4"/>
+                                                )}
+                                                
+                                                <div className="font-bold text-lg">
+                                                    {result.name}
+                                                </div>
+                                                <div className="line-clamp-2">
+                                                    {result.description}
+                                                </div>
+                                                <hr className="my-2"/>
+                                            </div>
+                                        </Link>
+                                    ))
+                                }
+                            </div>
+                        )
+                        : (
+                            <div className="absolute mt-2 bg-primary p-1 w-2/5">
+                                Loading Search Result
+                            </div>
+                        )
                 )
+                
+                    
             }
         </div>
     )

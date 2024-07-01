@@ -1,5 +1,5 @@
 import axios from "axios";
-import Project from "./project_model";
+import Project, { SearchResult } from "./project_model";
 
 interface getProductsProps{
     name:string;
@@ -36,13 +36,13 @@ export const getAProject = async(projectId: String) : Promise<Project>=>{
     return getAllProjs()[2];
 }
 
-export const searchForProject = async (query: string)=>{
+export const searchForProject = async (query: string): Promise<SearchResult>=>{
     //
     //
     const url = "https://cors-anywhere.herokuapp.com/https://search.thegrid.id/?q="+query;
 
     let res = await axios.get(url);
-    console.log(res.data.body.search_result);
+    return res.data.body.search_result;
 }
 
 function getAllProjs(): Project[]{
