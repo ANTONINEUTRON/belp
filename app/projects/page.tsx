@@ -1,69 +1,24 @@
 "use client"
 
 import ProjectItem from "@/components/project_item";
-import getProjectsFromApi from "@/data/project_repo";
-import Project from "@/data/project_model";
-import ProjectContext, { ProjectContextProps } from "@/providers/project_context";
-import axios from "axios";
-import Link from "next/link";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect } from "react";
 import { FaFilter } from "react-icons/fa6";
 import LoadingUI from "@/components/loading_ui";
 import { IoIosArrowDown } from "react-icons/io";
-import useScrollPosition from "@/hooks/usePosition";
+import { ProjectContext, ProjectContextProps } from "@/providers/project_context";
+
 
 const ProjectsPage = ()=>{
-    // const projectContext: ProjectContextProps = useContext(ProjectContext);
-    const [projects, setProjects] = useState<Project[] | null>(null);
-    const [errorMsg, setErrorMsg] = useState<String>("");
-    const [isLoadingMore, setIsLoadingMore] = useState<boolean>(false);
-    // const []
-
+    const projectState: ProjectContextProps = useContext(ProjectContext)!;
+    
     useEffect(()=>{
-        getProjectsFromApi().then(
-            (projectsss)=>{
-                setProjects(projectsss);
-
-                // setCurrentStartValue(currentStartValue + (projects!.length));
-            },
-            (reason)=>{
-
-                setErrorMsg("An error occured while fetching projects");
-                console.log(reason);
-            }
-        );
-    },
-    []);
-
-    const loadMore = ()=>{
-        setIsLoadingMore(true);
-        // if (scrollPosition > 80) {
-            console.log(projects?.length);
-            
-        // load more and append to the list of projects
-        getProjectsFromApi([],projects?.length).then(
-            (projectsss)=>{
-                let proj: Project[] = projects!;
-                setProjects([...proj, ...projectsss]);
-
-                setIsLoadingMore(false);
-                // setCurrentStartValue(currentStartValue + (projectsss!.length));
-            },
-            (reason)=>{
-                setIsLoadingMore(false);
-                // setErrorMsg("An error occured while fetching projects");
-                console.log(reason);
-            }
-        );
-        // }
-    }
-
-    // useEffect(() => {
+        console.log("REBUILD HAPPENDED");
+        console.log(projectState);
+        
+    })
     
-    // }, [scrollPosition]);
-    
-    
-    return projects ? (
+
+    return projectState.projects ? (
         <div className="container my-14">
             <div className='flex mx-14 justify-between my-2'>
                 <div>
@@ -73,16 +28,16 @@ const ProjectsPage = ()=>{
             </div>    
             <div className='grid grid-cols-3 mx-14'>
                 {
-                    projects === null 
+                    projectState.projects === null 
                     ? (
                         <div></div>
                     )
-                    : projects!.length === 0 ? (
+                    : projectState.projects.length === 0 ? (
                         <div>
                             Projects is Empty
                         </div>
                     ) :
-                    projects?.map((project, index)=>
+                    projectState.projects.map((project, index)=>
                         (
                             <ProjectItem 
                                 project={project}/>
@@ -92,14 +47,14 @@ const ProjectsPage = ()=>{
             </div>
             <div className="flex justify-center">
                 {
-                    isLoadingMore 
+                    projectState.isLoadingMore 
                     ? (
                         <div className="w-8 h-8 animate-spin">
                             <LoadingUI />
                         </div>
                     )
                     : (
-                        <button onClick={()=>loadMore()} className="bg-primary py-1 px-10 rounded-2xl mt-10 flex items-center justify-evenly">
+                        <button type="button" onClick={()=>projectState.loadMore(projectState)} className="bg-primary py-1 px-10 rounded-2xl mt-10 flex items-center justify-evenly">
                             Load More
                             <IoIosArrowDown className="ml-4" />
                         </button>
@@ -108,10 +63,10 @@ const ProjectsPage = ()=>{
             </div>
         </div>
     ) : 
-    errorMsg ?
+    projectState.errorMessage ?
     (
         <div className="flex items-center justify-center h-screen text-2xl text-red-600">
-            {errorMsg}
+            {projectState.errorMessage}
         </div>
     )
     : (

@@ -1,10 +1,8 @@
+"use client"
+
 import axios from "axios";
 import Project, { SearchResult } from "./project_model";
 
-interface getProductsProps{
-    name:string;
-    id:string;
-}
 
 const BASE_URL = "https://cors-anywhere.herokuapp.com/https://fetch.thegrid.id";
 
@@ -52,7 +50,7 @@ function generateIdList(startIndex: number): string {
     const idList: string[] = [];
   
     // Loop 10 times to generate 10 IDs
-    for (let i = 0; i < 25; i++) {
+    for (let i = 0; i < 12; i++) {
       // Create the ID string with padding for single-digit numbers
       const id = `ID-${startIndex + i}`;
       // Add the ID to the list

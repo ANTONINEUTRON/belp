@@ -1,4 +1,4 @@
-"use client "
+// "use client"
 import Navbar from '@/components/navbar'
 import './globals.css'
 import ProjectProviders from '@/providers/project_providers'
@@ -16,17 +16,16 @@ export default function RootLayout({
 }) {
   return (
     <AppWalletProviders>
-      {/* <ProjectProviders> */}
+      <ProjectProviders>
         <html lang="en">
           <body className="m-auto mt-4">
-
             <Navbar/>
             <div className='container m-auto'>
               {children}
             </div>
           </body>
         </html>
-      {/* </ProjectProviders> */}
+      </ProjectProviders>
     </AppWalletProviders>
   )
 }

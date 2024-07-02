@@ -2,56 +2,117 @@
 
 import getProjectsFromApi from "@/data/project_repo";
 import Project from "@/data/project_model";
-import { ReactNode, useLayoutEffect, useState } from "react";
-import ProjectContext, { ProjectContextProps } from "./project_context";
+import { createContext, ReactNode, useEffect, useLayoutEffect, useState } from "react";
+import { ProjectContext, ProjectContextProps } from "./project_context";
+
 
 interface ProjectProvidersProps{
     children: ReactNode;
 }
 
 const ProjectProviders: React.FC<ProjectProvidersProps> = ({children})=>{
-    const [projects, setProjects] = useState<Project[] | null>(null)
-    const [error, setErrorMessage] = useState<string | null>(null);
-    const stateData: ProjectContextProps = {
-        projects: projects,
-        errorMessage: error,
-        setErrorMessage: setErrorMessage,
-        setProjects: setProjects,
-    };
 
-    const fetchInitialProjects = async()=>{
-        try {
-            let projects: Project[] = await getProjectsFromApi();
-            console.log("PROJECTS gotten");
-            console.log(projects);
-            let upda = {
-                ...stateData,
-                projects: projects,
-                errorMessage: null,
-            };
-            setProjects(projects);
-            // setStateData({
-            //     ...stateData,
-            //     projects: projects,
-            //     errorMessage: null,
-            // });
-            console.log(upda);
-        } catch (err) {
-            setErrorMessage("An error occured while fetching projects");
-            // setStateData({
-            //     ...stateData,
-            //     errorMessage: "An error occured while fetching projects",
-            // });
-            console.error(err);
-        }
+
+    const [projectState, setProjectState] = useState<ProjectContextProps>({
+        projects: null,
+        errorMessage: "",
+        loadMore: loadMore,
+        isLoadingMore: false,
+    });
+
+    function loadMore(prevState: ProjectContextProps){
+        
+        setProjectState({
+            ...prevState,
+            isLoadingMore: true,
+        });
+            
+        // load more and append to the list of projects
+        getProjectsFromApi([],(prevState.projects?.length ?? 1)).then(
+            (projectsss)=>{
+                // let proj: Project[] = projects!;
+                
+                setProjectState({
+                    ...prevState,
+                    projects: [
+                        ...prevState.projects!,
+                        ...projectsss
+                    ],
+                    isLoadingMore:false,
+                });
+            },
+            (reason)=>{
+                setProjectState({
+                    ...prevState,
+                    isLoadingMore: false,
+                });
+                
+                console.log(reason);
+            }
+        );
     }
 
-    useLayoutEffect(()=>{
-        fetchInitialProjects();
-    },[]);
+
+    useEffect(()=>{
+        getProjectsFromApi().then(
+            (projectsss)=>{
+                
+                console.log(projectState);
+                const newState = {
+                    ...projectState,
+                    projects: projectsss,
+                    
+                };
+                setProjectState(newState);
+
+        console.log(projectState);
+            },
+            (reason)=>{
+                // setErrorMsg();
+                setProjectState({
+                    ...projectState,
+                    errorMessage: "An error occured while fetching projects",
+                });
+                console.log(reason);
+            }
+        );
+    },
+    []);
+
+
+    // const fetchInitialProjects = async()=>{
+    //     try {
+    //         let projects: Project[] = await getProjectsFromApi();
+    //         console.log("PROJECTS gotten");
+    //         console.log(projects);
+    //         let upda = {
+    //             ...stateData,
+    //             projects: projects,
+    //             errorMessage: null,
+    //         };
+    //         setProjects(projects);
+    //         // setStateData({
+    //         //     ...stateData,
+    //         //     projects: projects,
+    //         //     errorMessage: null,
+    //         // });
+    //         console.log(upda);
+    //     } catch (err) {
+    //         setErrorMessage("An error occured while fetching projects");
+    //         // setStateData({
+    //         //     ...stateData,
+    //         //     errorMessage: "An error occured while fetching projects",
+    //         // });
+    //         console.error(err);
+    //     }
+    // }
+
+    // useLayoutEffect(()=>{
+    //     fetchInitialProjects();
+    // },[]);
 
     return (
-        <ProjectContext.Provider value={stateData}>
+        <ProjectContext.Provider value={projectState}>
             {children}
         </ProjectContext.Provider>
     );
