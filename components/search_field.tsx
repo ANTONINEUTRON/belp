@@ -1,4 +1,4 @@
-import { searchForProject } from "@/data/product_repo";
+import { searchForProject } from "@/data/project_repo";
 import { SearchProfiles, SearchResult } from "@/data/project_model";
 import Link from "next/link";
 import { FormEvent, useState } from "react";
@@ -92,7 +92,7 @@ const SearchField = ()=>{
                             </div>
                         )
                         : (
-                            <div className="absolute mt-2 bg-primary p-1 w-2/5">
+                            <div className="absolute mt-2 bg-primary rounded-xl p-3 w-2/5">
                                 Loading Search Result
                             </div>
                         )

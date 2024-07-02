@@ -7,7 +7,7 @@ import ProjectItem from '@/components/project_item'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import Project from '@/data/project_model'
-import getProjectsFromApi from '@/data/product_repo'
+import getProjectsFromApi from '@/data/project_repo'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -38,8 +38,8 @@ export default function Home() {
             <section className='w-full flex h-[87vh]'>
               <div className='flex justify-center items-center'>
                 <div className='mx-14 text-white'>
-                  <div className='text-5xl'>CREATE AND CONSUME BOOKS LIKE NEVER BEFORE</div>
-                  <div className='text-lg'>Revolutionize Your Reading Experience with Blockchain-Backed Book Creation and Reading Platform </div>
+                  <div className='text-5xl my-2'>AI-POWERED INSIGHTS MEET REAL USER EXPERIENCES</div>
+                  <div className='text-lg'>Leverage user reviews and AI analysis for smarter choices on various SOLANA projects</div>
                 </div>
               </div>
               <div className='md:flex justify-center mx-5 items-center'>
@@ -56,7 +56,7 @@ export default function Home() {
                         <hr className='w-10' />
                       </div>
                       <Link href='/projects'>
-                        <span className='text-tertiary'>see more</span>
+                        <span className='text-tertiary hover:opacity-80'>see more</span>
                       </Link>
                     </div>
                     <div className='grid grid-cols-3 mx-5'>

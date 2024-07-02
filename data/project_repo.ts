@@ -8,16 +8,18 @@ interface getProductsProps{
 
 const BASE_URL = "https://cors-anywhere.herokuapp.com/https://fetch.thegrid.id";
 
-const getProjectsFromApi = async(projectIDS: String[] = []): Promise<Project[]> => {
+const getProjectsFromApi = async(projectIDS: String[] = [], startIndex: number = 1,): Promise<Project[]> => {
     if(projectIDS.length === 0){
-        // let idsToFetch = "ID-01,ID-02,ID-03,ID-04,ID-05,ID-06,ID-07,ID-08,ID-09,ID-10";
-        // const url = "https://cors-anywhere.herokuapp.com/https://fetch.thegrid.id/?ids=ID-01,ID-02,ID-03,ID-04,ID-05,ID-06,ID-07,ID-08,ID-09,ID-10";//"https://fetch.thegrid.id/?ids=" + idsToFetch;
+        let idsToFetch = generateIdList(startIndex); //"ID-01,ID-02,ID-03,ID-04,ID-05,ID-06,ID-07,ID-08,ID-09,ID-10";
+        
+        const url = BASE_URL+"/?ids="+idsToFetch;//"https://fetch.thegrid.id/?ids=" + idsToFetch;
         // // console.log(url);
-        // let res = await axios.get(url);
+        
+        let res = await axios.get(url);
 
-        // console.log(res.data.body);
+        console.log(res.data.body);
         // let res = await 
-        return getAllProjs();//res.data.body; 
+        return res.data.body;//getAllProjs();//res.data.body; 
     }
 
     return getAllProjs().filter((value, index, array)=>{
@@ -39,11 +41,27 @@ export const getAProject = async(projectId: String) : Promise<Project>=>{
 export const searchForProject = async (query: string): Promise<SearchResult>=>{
     //
     //
-    const url = "https://cors-anywhere.herokuapp.com/https://search.thegrid.id/?q="+query;
+    const url = BASE_URL+"/?q="+query;
 
     let res = await axios.get(url);
     return res.data.body.search_result;
 }
+
+function generateIdList(startIndex: number): string {
+    // Initialize an empty array to store IDs
+    const idList: string[] = [];
+  
+    // Loop 10 times to generate 10 IDs
+    for (let i = 0; i < 25; i++) {
+      // Create the ID string with padding for single-digit numbers
+      const id = `ID-${startIndex + i}`;
+      // Add the ID to the list
+      idList.push(id);
+    }
+  
+    // Join the IDs in the list with commas and return the final string
+    return idList.join(',');
+  }
 
 function getAllProjs(): Project[]{
     return [

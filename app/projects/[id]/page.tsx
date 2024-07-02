@@ -6,7 +6,7 @@ import { GrDocumentText } from "react-icons/gr";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import Project from "@/data/project_model";
-import { getAProject } from "@/data/product_repo";
+import { getAProject } from "@/data/project_repo";
 import { ProjectTagSet } from "@/components/project_tags";
 import { MdRateReview } from "react-icons/md";
 import CommentBox, { AddCommentButton } from "@/components/comment_box";

@@ -25,7 +25,7 @@ export default function Navbar() {
     <div className=' fixed top-0 left-0 right-0 bg-inherit flex justify-center'>
       <nav className="h-14 container flex items-center justify-between bg-inherit">
             <Link
-              className="text-xl font-bold leading-relaxed flex items-center uppercase text-white"
+              className="text-xl font-bold leading-relaxed flex items-center uppercase text-primary hover:text-white"
               href="/">
               {/* <Logo /> */}
               Belp

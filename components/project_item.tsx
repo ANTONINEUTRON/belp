@@ -9,8 +9,8 @@ interface ProjectItemProps{
 const ProjectItem: React.FC<ProjectItemProps> = ({project})=>{
     const profile = project.profile;
 
-    return (
-        <Link href={"/projects/"+project.id}>
+    return profile && (
+        <Link className='hover:shadow-2xl hover:opacity-80' href={"/projects/"+project.id}>
             <div className='border rounded-lg m-2 my-4 p-4'>
                 <div className='w-32 h-32 flex justify-center items-center'>
                     <img
@@ -37,7 +37,6 @@ const ProjectItem: React.FC<ProjectItemProps> = ({project})=>{
 
             </div>
         </Link>
-        
     );
 }
 
