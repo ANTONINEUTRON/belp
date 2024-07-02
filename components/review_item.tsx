@@ -1,9 +1,13 @@
+"use client"
+
 import { IoPersonCircle } from "react-icons/io5";
-import { FaReply,FaShare } from "react-icons/fa6";
+import { FaShare } from "react-icons/fa6";
 import { SlLike } from "react-icons/sl";
 import { PiTipJarFill } from "react-icons/pi";
 import { Review } from "@/data/review_model";
 import Link from "next/link";
+import { Popover } from "antd";
+import CopySection from "./copy_section";
 
 const actionsClassNames = "flex border p-1 px-2 m-2 rounded-lg items-center text-secondary border-secondary shadow-2xl hover:text-tertiary";
 
@@ -46,11 +50,12 @@ const ReviewItem = ({review}:{review: Review})=>{
                     <FaReply  className="mr-2"/>
                     reply
                 </button> */}
-                
-                <button className={actionsClassNames}>
-                    <FaShare  className="mr-2"/>
-                    Share
-                </button>
+                <Popover content={(<CopySection text={window.location.href} />)} title="Copy link">
+                    <button className={actionsClassNames}>
+                        <FaShare  className="mr-2"/>
+                        Share
+                    </button>
+                </Popover>
             </div>
         </div>
     );
