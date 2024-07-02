@@ -40,6 +40,7 @@ const ProjectsPage = ()=>{
                     projectState.projects.map((project, index)=>
                         (
                             <ProjectItem 
+                                key={index}
                                 project={project}/>
                         )
                     )

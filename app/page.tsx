@@ -5,32 +5,32 @@ import styles from './page.module.css'
 import Navbar from '@/components/navbar'
 import ProjectItem from '@/components/project_item'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import Project from '@/data/project_model'
 import getProjectsFromApi from '@/data/project_repo'
+import { ProjectContext, ProjectContextProps } from '@/providers/project_context'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
-  const [projects, setProjects] = useState<Project[] | null>(null);
-  const [errorMsg, setErrorMsg] = useState<String>("");
-  // const []
+  const projectState = useContext(ProjectContext);
+  // const [projects, setProjects] = useState<Project[] | null>(null);
+  // const [errorMsg, setErrorMsg] = useState<String>("");
 
-  useEffect(()=>{
-      try {
-          getProjectsFromApi(["ID-1","ID-2","ID-3"]).then(
-              (projectsss)=>{
-                console.log(projectsss);
+  // useEffect(()=>{
+  //     try {
+  //         getProjectsFromApi(["ID-1","ID-2","ID-3"]).then(
+  //             (projectsss)=>{
+  //               console.log(projectsss);
                 
-                  setProjects(projectsss);
-              }
-          );
-      } catch (error) {
-          setErrorMsg("An error occured while fetching projects");
-          console.log(error);
-      }
-  },[]);
-  // 
+  //                 setProjects(projectsss);
+  //             }
+  //         );
+  //     } catch (error) {
+  //         setErrorMsg("An error occured while fetching projects");
+  //         console.log(error);
+  //     }
+  // },[]);
 
 
   return (
@@ -48,7 +48,7 @@ export default function Home() {
             </section>
             
               
-              {projects && (
+              {projectState?.projects && (
                 <section>
                     <div className='flex justify-between my-2 items-center'>
                       <div>
@@ -56,18 +56,22 @@ export default function Home() {
                         <hr className='w-10' />
                       </div>
                       <Link href='/projects'>
-                        <span className='text-tertiary hover:opacity-80'>see more</span>
+                        <span className='text-primary hover:opacity-80'>See All</span>
                       </Link>
                     </div>
                     <div className='grid grid-cols-3 mx-5'>
                       {
-                        projects.map((value, index)=>
-                          (
-                            <div>
-                              <ProjectItem 
-                                project={value}/>
-                            </div>
-                          )
+                        projectState?.projects.map(
+                          (value, index)=>{
+                            if(index < 3){
+                              return (
+                                <div key={index}>
+                                  <ProjectItem
+                                    project={value} />
+                                </div>
+                              );
+                            }
+                          }
                         )
                       }
                     </div>

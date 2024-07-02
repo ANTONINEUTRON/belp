@@ -88,7 +88,7 @@ export const AddCommentButton = (
                     </div>
                 )
             }
-            <button onClick={()=>setIsOpen(!isOpen)} className={`bg-secondary hover:text-gray-400 text-white p-4 rounded-full shadow-2xl`}>
+            <button onClick={()=>setIsOpen(!isOpen)} className={`bg-secondary hover:bg-primary hover:text-gray-400 text-white p-4 rounded-full shadow-2xl`}>
                 {isOpen ?(
                     <div>
                         <IoMdClose size={30} />

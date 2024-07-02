@@ -3,17 +3,21 @@ import { FaReply,FaShare } from "react-icons/fa6";
 import { SlLike } from "react-icons/sl";
 import { PiTipJarFill } from "react-icons/pi";
 import { Review } from "@/data/review_model";
+import Link from "next/link";
+
+const actionsClassNames = "flex border p-1 px-2 m-2 rounded-lg items-center text-secondary border-secondary shadow-2xl hover:text-tertiary";
 
 const ReviewItem = ({review}:{review: Review})=>{
-
 
     return (
         <div className="border rounded-lg py-2 px-5 mt-6 shadow-xl">
             <div className="flex justify-between items-center">
-                <div className="flex items-center">
-                    <IoPersonCircle size={40}/>
-                    <div className="pl-1 font-semibold">{truncateAddresse(review.walletAddr)}</div>
-                </div>
+                <Link href={"https://explorer.solana.com/address/"+review.walletAddr} target="_blank">
+                    <div className="flex items-center text-primary hover:text-lg">
+                        <IoPersonCircle size={40}/>
+                        <div className="pl-1 font-semibold">{truncateAddresse(review.walletAddr)}</div>
+                    </div>
+                </Link>
                 <div>
                     {formatTimestamp(review.created_at)}
                 </div>
@@ -28,24 +32,24 @@ const ReviewItem = ({review}:{review: Review})=>{
             <hr className="mt-6 mb-2"/>
 
             <div className="flex">
-                <button className="flex border p-1 m-2 rounded-lg items-center">
+                <button className={actionsClassNames}>
                     <SlLike className="mr-2"/>
-                    helpful
+                    Helpful
                 </button>
 
-                <button className=" flex border p-1 m-2 rounded-lg items-center">
+                <button className={actionsClassNames}>
                     <PiTipJarFill  className="mr-2"/>
-                    tip
+                    Tip
                 </button>
 
-                <button className="flex border p-1 m-2 rounded-lg items-center">
+                {/* <button className={actionsClassNames}>
                     <FaReply  className="mr-2"/>
                     reply
-                </button>
+                </button> */}
                 
-                <button className=" flex border p-1 m-2 rounded-lg items-center">
+                <button className={actionsClassNames}>
                     <FaShare  className="mr-2"/>
-                    share
+                    Share
                 </button>
             </div>
         </div>
