@@ -27,7 +27,7 @@ const ReviewSection = ({projectId} : {projectId: string})=>{
                     </div>
                 )
                 : reviews!.map((value,index)=>(
-                    <div>
+                    <div key={index}>
                         <ReviewItem
                             review={value} />
                     </div>
