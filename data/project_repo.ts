@@ -1,10 +1,8 @@
-"use client"
-
 import axios from "axios";
 import Project, { SearchResult } from "./project_model";
 
 
-const BASE_URL = "https://cors-anywhere.herokuapp.com/https://fetch.thegrid.id";
+const BASE_URL = "https://fetch.thegrid.id";//"https://cors-anywhere.herokuapp.com/https://fetch.thegrid.id";
 
 const getProjectsFromApi = async(projectIDS: String[] = [], startIndex: number = 1,): Promise<Project[]> => {
     let idsToFetch = generateIdList(startIndex); 
