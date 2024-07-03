@@ -44,7 +44,6 @@ const SearchField = ()=>{
                     <input 
                         className='w-full h-10 rounded-lg p-2' 
                         placeholder='Search a blockchain project'
-                        // prefix={}
                         onChange={(e) => {
                             setQuery(e.target.value);
                         }} />
@@ -65,7 +64,10 @@ const SearchField = ()=>{
                                 </div> 
                                 {
                                     queryResponse.map((result,index)=>(
-                                        <Link href={"/projects/"+result.id} onClick={()=>resetSearchState()}>
+                                        <Link 
+                                            key={index} 
+                                            href={"/projects/"+result.id} 
+                                            onClick={()=>resetSearchState()}>
                                             <div className="pt-3">
                                                 {result.logo && (
                                                     <img 

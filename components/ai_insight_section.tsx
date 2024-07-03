@@ -18,6 +18,7 @@ const AIInsightSection = ({project}:{project: Project | null})=>{
             {
                 data.map((value,index)=>(
                     <AIInsightItem
+                        key={index}
                         aiInsightModel={value} />
                 ))
             }
@@ -77,7 +78,6 @@ const AIInsightItem = ({aiInsightModel}: {aiInsightModel: AIInsightModel})=>{
                             <Markdown>
                                 {aiResponse}
                             </Markdown>
-                            
                         </div>
                 )
             }
