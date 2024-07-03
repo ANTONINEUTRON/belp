@@ -22,7 +22,7 @@ const CopySection = ({text}:{text: string})=>{
             {
                 hasCopied 
                 ? (
-                    <span className="font-bold text-lg">Copied</span>
+                    <span className="font-bold text-sm">Copied!</span>
                 )
                 : (
                     <button onClick = { copyUrl }>

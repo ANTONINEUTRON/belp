@@ -6,6 +6,7 @@ export interface Review{
     message: string;
     likes: number;
     tips: number;
+    shares: number;
     responses: Object;
     created_at: string;
 }

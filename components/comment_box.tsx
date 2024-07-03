@@ -42,7 +42,9 @@ const CommentBox = (
         
 
         const { data, error } = await supabaseReviewDB
-        .insert(reviewObject).select().single();
+        .insert(reviewObject)
+        .select()
+        .single();
         
         if (error) {
             setErrorText(error.message);

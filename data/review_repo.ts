@@ -15,3 +15,13 @@ export const getReviewsFor = async(projectId: string): Promise<Review[]>=>{
         return data;
     }
 }
+
+export const updateReview = async (review: Review)=>{
+    const { error } = await supabaseReviewDB
+        .update(review)
+        .eq('id',review.id);
+
+    if(error){
+        throw error;
+    }
+}

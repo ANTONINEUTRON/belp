@@ -8,10 +8,45 @@ import { Review } from "@/data/review_model";
 import Link from "next/link";
 import { Popover } from "antd";
 import CopySection from "./copy_section";
+import { useConnection, useWallet } from "@solana/wallet-adapter-react";
+import { useCallback, useState } from "react";
+import { updateReview } from "@/data/review_repo";
+import { WalletNotConnectedError } from "@solana/wallet-adapter-base";
+import { Keypair, PublicKey, SystemProgram, Transaction } from "@solana/web3.js";
+import TipSection from "./tip_section";
 
 const actionsClassNames = "flex border p-1 px-2 m-2 rounded-lg items-center text-secondary border-secondary shadow-2xl hover:text-tertiary";
 
 const ReviewItem = ({review}:{review: Review})=>{
+    const { publicKey, sendTransaction } = useWallet();
+    const [errorMessage, setErrorMessage] = useState("");
+    const { connection } = useConnection();
+    // const [review, setReview] = useState<Review>(revieew);
+
+    const onHelpfulClicked = async()=>{
+        if (!publicKey) {
+            setErrorMessage("You need to connect your wallet!");
+            return;
+        }
+
+        try {
+            const newReview = {
+                ...review,
+                likes: review.likes + 1
+            };
+            await updateReview(newReview);
+
+            // setReview(newReview);
+        } catch (error) {
+            console.log(error);
+            
+            setErrorMessage("Couldn't like this review! please try again");
+
+            setTimeout(()=>{
+                setErrorMessage("");
+            },5000);
+        }
+    }
 
     return (
         <div className="border rounded-lg py-2 px-5 mt-6 shadow-xl">
@@ -36,26 +71,35 @@ const ReviewItem = ({review}:{review: Review})=>{
             <hr className="mt-6 mb-2"/>
 
             <div className="flex">
-                <button className={actionsClassNames}>
-                    <SlLike className="mr-2"/>
-                    Helpful
-                </button>
+                <Popover content={(<TipSection review={review}/>)} trigger={["click","hover"]} title="Tip Reviewer">
+                    <button className={actionsClassNames}>
+                        <PiTipJarFill className="mr-2"/>
+                        {
+                            review.tips 
+                            ? (
+                                <div>
+                                    {review.tips} sol
+                                </div>
+                            )
+                            : (
+                                <span>
+                                    Tip
+                                </span>
+                            )
+                        }
+                        
+                    </button>
+                </Popover>
 
-                <button className={actionsClassNames}>
-                    <PiTipJarFill  className="mr-2"/>
-                    Tip
-                </button>
-
-                {/* <button className={actionsClassNames}>
-                    <FaReply  className="mr-2"/>
-                    reply
-                </button> */}
-                <Popover content={(<CopySection text={window.location.href} />)} title="Copy link">
+                <Popover content={(<CopySection text={window.location.href} />)} trigger={["click", "hover"]} title="Copy link">
                     <button className={actionsClassNames}>
                         <FaShare  className="mr-2"/>
                         Share
                     </button>
                 </Popover>
+            </div>
+            <div className="text-red-600 py-1">
+                {errorMessage}
             </div>
         </div>
     );
