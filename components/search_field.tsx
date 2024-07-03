@@ -9,24 +9,21 @@ const SearchField = ()=>{
     const [isSearching, setIsSearching] = useState(false);
     const [query, setQuery] = useState("");
     const [queryResponse, setQueryResponse] = useState<SearchProfiles[] | null>()
+    const [errorMsg, setErrorMsg] = useState<string>("")
 
 
     const handleSearch = async (event: FormEvent)=>{
         event.preventDefault();
-        console.log("got in");
-        
 
         if(query.length > 2){
             setIsSearching(true);
             try {
                 let results: SearchResult = await searchForProject(query.trim());
 
-                console.log("gottt in");
-                console.log(results);
-
                 setQueryResponse(results.profiles);
             } catch (error) {
                 console.log(error);
+                setErrorMsg("An error occurred while searching. Try again");
             }
         }
     }
@@ -38,11 +35,14 @@ const SearchField = ()=>{
     }
 
     return (
-        <div className="w-2/5  bg-inherit ">
+        <div className="w-full py-3 bg-inherit ">
             <div className="bg-inherit w-full border rounded-lg flex justify-between p-1 items-center">
+                <div>
+                    <FaSearch />
+                </div>
                 <form onSubmit={(e)=>{handleSearch(e)}} className="w-full flex">
                     <input 
-                        className='w-full h-6' 
+                        className='w-full h-10 rounded-lg p-2' 
                         placeholder='Search a blockchain project'
                         // prefix={}
                         onChange={(e) => {
@@ -52,15 +52,12 @@ const SearchField = ()=>{
                     </button>
                 </form> 
                 
-                <div>
-                    <FaSearch />
-                </div>
             </div>   
             {
                 isSearching && (
                     queryResponse
                         ? (
-                            <div className="absolute mt-4 rounded-xl p-3 bg-inherit w-2/5">
+                            <div className="absolute mt-4 rounded-xl p-3 bg-inherit md:w-2/5 w-full">
                                 <div className="flex justify-end">
                                     <button onClick={()=>resetSearchState()}>
                                         <IoClose className="text-secondary" size={40}/>
@@ -92,8 +89,25 @@ const SearchField = ()=>{
                             </div>
                         )
                         : (
-                            <div className="absolute mt-2 bg-primary rounded-xl p-3 w-2/5">
-                                Loading Search Result
+                            <div className="absolute mt-2 bg-primary rounded-xl p-3 md:w-2/5 w-full">
+                                {
+                                    errorMsg
+                                    ? (
+                                        <div className="text-lg flex flex-col items-center">
+                                            <div className="flex justify-end w-full">
+                                                <button onClick={() => resetSearchState()}>
+                                                    <IoClose className="text-tertiary" size={40} />
+                                                </button>
+                                            </div>
+                                            {errorMsg}
+                                        </div>
+                                    )
+                                    : (
+                                        <div>
+                                            Loading Search Result...
+                                        </div>
+                                    )
+                                }
                             </div>
                         )
                 )

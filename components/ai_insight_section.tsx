@@ -55,7 +55,7 @@ const AIInsightItem = ({aiInsightModel}: {aiInsightModel: AIInsightModel})=>{
 
     return (
         <div>
-            <div onClick={(e)=>toggleView()} className="flex justify-between items-center text-xl dark:bg-tertiary p-2 rounded-md">
+            <div onClick={(e)=>toggleView()} className="flex justify-between items-center md:text-xl bg-tertiary p-2 rounded-md">
                 <div>
                     {aiInsightModel.title}
                 </div>

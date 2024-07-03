@@ -57,15 +57,12 @@ const ProjectProviders: React.FC<ProjectProvidersProps> = ({children})=>{
         getProjectsFromApi().then(
             (projectsss)=>{
                 
-                console.log(projectState);
                 const newState = {
                     ...projectState,
                     projects: projectsss,
                     
                 };
                 setProjectState(newState);
-
-        console.log(projectState);
             },
             (reason)=>{
                 // setErrorMsg();
@@ -78,38 +75,6 @@ const ProjectProviders: React.FC<ProjectProvidersProps> = ({children})=>{
         );
     },
     []);
-
-
-    // const fetchInitialProjects = async()=>{
-    //     try {
-    //         let projects: Project[] = await getProjectsFromApi();
-    //         console.log("PROJECTS gotten");
-    //         console.log(projects);
-    //         let upda = {
-    //             ...stateData,
-    //             projects: projects,
-    //             errorMessage: null,
-    //         };
-    //         setProjects(projects);
-    //         // setStateData({
-    //         //     ...stateData,
-    //         //     projects: projects,
-    //         //     errorMessage: null,
-    //         // });
-    //         console.log(upda);
-    //     } catch (err) {
-    //         setErrorMessage("An error occured while fetching projects");
-    //         // setStateData({
-    //         //     ...stateData,
-    //         //     errorMessage: "An error occured while fetching projects",
-    //         // });
-    //         console.error(err);
-    //     }
-    // }
-
-    // useLayoutEffect(()=>{
-    //     fetchInitialProjects();
-    // },[]);
 
     return (
         <ProjectContext.Provider value={projectState}>

@@ -55,8 +55,6 @@ const TipSection = ({review}:{review: Review})=>{
 
             let respons = await connection.confirmTransaction({ blockhash, lastValidBlockHeight, signature });
 
-            console.log(respons);
-
             setNotice("You've tipped this review successfully");
 
             await updateReview({

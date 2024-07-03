@@ -3,9 +3,7 @@
 import Link from 'next/link';
 // import { motion } from 'framer-motion';
 import WalletButton from "./wallet_button";
-import { FaBars } from 'react-icons/fa';
 import { usePathname } from "next/navigation";
-import { useEffect } from "react";
 import { useState } from "react";
 import SearchField from './search_field';
 
@@ -15,15 +13,21 @@ export default function Navbar() {
 
 
   return (
-    <div className=' sticky top-0 left-0 right-0 bg-black flex justify-center'>
-      <nav className="h-14 container flex items-center justify-between bg-inherit">
+    <div className='md:sticky fixed top-0 md:left-0 md:right-0 left-2 right-2 bg-inherit flex justify-center'>
+      <nav className="h-14 container flex md:flex-row flex-wrap items-center justify-between bg-inherit pt-2 md:pt-0">
             <Link
               className="text-xl font-bold leading-relaxed flex items-center uppercase text-primary hover:text-white"
               href="/">
               Belp
             </Link>
-            <SearchField />
+            <div className='md:block hidden w-2/5'>
+              <SearchField />
+            </div>
             <WalletButton />
+            <div className='md:hidden w-full'>
+              <SearchField />
+            </div>
+            
       </nav>
     </div>
   );

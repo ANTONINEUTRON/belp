@@ -13,13 +13,13 @@ const ProjectsPage = ()=>{
 
     return projectState.projects ? (
         <div className="container my-14">
-            <div className='flex mx-14 justify-between my-2'>
+            <div className='flex md:mx-14 mx-2 justify-start mt-36'>
                 <div>
                     <h1 className='text-2xl'>All Projects</h1><hr className='w-10' />
                 </div>
-                <FaFilter />
+                {/* <FaFilter /> */}
             </div>    
-            <div className='grid grid-cols-3 mx-14'>
+            <div className='grid md:grid-cols-3 grid-cols-1 md:mx-14'>
                 {
                     projectState.projects === null 
                     ? (

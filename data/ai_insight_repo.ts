@@ -50,14 +50,9 @@ export const AIInsightData = (project: Project | null): AIInsightModel[] => {
 export const queryGeminiForResponse = async (aiInsight: AIInsightModel): Promise<string>=>{
     const genAI = new GoogleGenerativeAI(process.env.NEXT_PUBLIC_GEMINI_API_KEY ?? "");
 
-    console.log(process.env.NEXT_PUBLIC_GEMINI_API_KEY);
-    
-
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
     const prompt = aiInsight.query;
-
-    console.log(prompt);
     
 
     const result = await model.generateContent(prompt);
