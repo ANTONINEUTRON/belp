@@ -23,8 +23,6 @@ const CommentBox = (
             return;
         }
         //if walletAddress is not empty
-        // console.log();
-        
         if(!publicKey){
             setErrorText("You need to connect your wallet before you drop a review <br />Your wallet address is your identity!");
             return;
@@ -48,13 +46,8 @@ const CommentBox = (
         
         if (error) {
             setErrorText(error.message);
-            
-            console.log(error);
-            
         } else {
             setIsOpen(false);
-            
-            console.log(data);
         }
     }
 

@@ -1,6 +1,5 @@
 "use client"
-
-import ReviewItem from "@/components/review_item";
+import { GiArtificialIntelligence } from "react-icons/gi";
 import { FaGlobe } from "react-icons/fa";
 import { GrDocumentText } from "react-icons/gr";
 import Link from "next/link";
@@ -9,21 +8,22 @@ import Project from "@/data/project_model";
 import { getAProject } from "@/data/project_repo";
 import { ProjectTagSet } from "@/components/project_tags";
 import { MdRateReview } from "react-icons/md";
-import CommentBox, { AddCommentButton } from "@/components/comment_box";
+import { AddCommentButton } from "@/components/comment_box";
 import ReviewSection from "@/components/review_section";
 import ReviewProvider from "@/providers/review_provider";
+import { Tabs } from "antd";
+import AIInsightSection from "@/components/ai_insight_section";
 
 const OpenProjects = ({ params }: { params: { id: string } })=>{
     const [project, setProject] = useState<Project | null>(null);
 
     useEffect(()=>{
-        try {
-            getAProject(params.id).then((projet)=>{
-                setProject(projet);
-            });
-        } catch (error) {
-            console.log(error);
-        }
+        getAProject(params.id).then((projet)=>{
+            setProject(projet[0]);
+        },
+        (reason)=>{
+            console.log(reason);
+        });
     },[]);
 
     return (
@@ -68,29 +68,45 @@ const OpenProjects = ({ params }: { params: { id: string } })=>{
                     <div className="mt-5">
                         {project?.profile.descriptionLong}
                     </div>
-                    {/* <span className="font-semibold text-lg">Products</span> */}
                 </div>
             </div>
 
-            {/* Reviews here */}
-            <div className="mt-8">
-                <div>
-                    <div className="font-bold text-2xl">
-                        Reviews
-                    </div>
+            <div className="mt-8 z-0">
+                <div className="font-bold text-2xl text-white">
+                    <Tabs
+                        type="card"
+                        className="text-white"
+                        tabBarStyle={{textDecorationColor: `#ff5656`}}
+                        items={
+                            [
+                                {
+                                    label: (<div className="text-tertiary flex justify-between items-center"><GiArtificialIntelligence size={30} /> A.I Insights</div>),
+                                    key: "ai",
+                                    children: (
+                                        <AIInsightSection project={project} />
+                                    ),
+                                },
+                                {
+                                    label: (<div className="text-tertiary flex justify-between items-center"><MdRateReview size={30} />Reviews</div>),
+                                    key: "review",
+                                    children: (
+                                        <ReviewProvider>
+                                            <ReviewSection
+                                                projectId={params.id} />
+                                        </ReviewProvider>
+                                    ),
+                                },
+                            ]
+                        }
+                    />
                 </div>
 
-                <ReviewProvider>
-                    <ReviewSection 
-                        projectId={params.id} />
-                </ReviewProvider>
+                
                 
             </div>
 
             <AddCommentButton
                 projectId={params.id} />
-
-            {/* </FloatingActionButton> */}
         </div>
     );
 }

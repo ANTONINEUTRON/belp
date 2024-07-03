@@ -14,24 +14,6 @@ const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
   const projectState = useContext(ProjectContext);
-  // const [projects, setProjects] = useState<Project[] | null>(null);
-  // const [errorMsg, setErrorMsg] = useState<String>("");
-
-  // useEffect(()=>{
-  //     try {
-  //         getProjectsFromApi(["ID-1","ID-2","ID-3"]).then(
-  //             (projectsss)=>{
-  //               console.log(projectsss);
-                
-  //                 setProjects(projectsss);
-  //             }
-  //         );
-  //     } catch (error) {
-  //         setErrorMsg("An error occured while fetching projects");
-  //         console.log(error);
-  //     }
-  // },[]);
-
 
   return (
         <main className={styles.center+"ml-16 mr-16 mt-10 flex flex-col justify-center"}>

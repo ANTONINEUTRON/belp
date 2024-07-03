@@ -10,13 +10,6 @@ import { ProjectContext, ProjectContextProps } from "@/providers/project_context
 
 const ProjectsPage = ()=>{
     const projectState: ProjectContextProps = useContext(ProjectContext)!;
-    
-    useEffect(()=>{
-        console.log("REBUILD HAPPENDED");
-        console.log(projectState);
-        
-    })
-    
 
     return projectState.projects ? (
         <div className="container my-14">

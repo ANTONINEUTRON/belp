@@ -2,17 +2,14 @@
 
 import { IoPersonCircle } from "react-icons/io5";
 import { FaShare } from "react-icons/fa6";
-import { SlLike } from "react-icons/sl";
 import { PiTipJarFill } from "react-icons/pi";
 import { Review } from "@/data/review_model";
 import Link from "next/link";
 import { Popover } from "antd";
 import CopySection from "./copy_section";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { updateReview } from "@/data/review_repo";
-import { WalletNotConnectedError } from "@solana/wallet-adapter-base";
-import { Keypair, PublicKey, SystemProgram, Transaction } from "@solana/web3.js";
 import TipSection from "./tip_section";
 
 const actionsClassNames = "flex border p-1 px-2 m-2 rounded-lg items-center text-secondary border-secondary shadow-2xl hover:text-tertiary";
@@ -38,8 +35,6 @@ const ReviewItem = ({review}:{review: Review})=>{
 
             // setReview(newReview);
         } catch (error) {
-            console.log(error);
-            
             setErrorMessage("Couldn't like this review! please try again");
 
             setTimeout(()=>{
@@ -50,7 +45,7 @@ const ReviewItem = ({review}:{review: Review})=>{
 
     return (
         <div className="border rounded-lg py-2 px-5 mt-6 shadow-xl">
-            <div className="flex justify-between items-center">
+            <div className="flex justify-between items-center" id={review.id}>
                 <Link href={"https://explorer.solana.com/address/"+review.walletAddr} target="_blank">
                     <div className="flex items-center text-primary hover:text-lg">
                         <IoPersonCircle size={40}/>
@@ -78,7 +73,7 @@ const ReviewItem = ({review}:{review: Review})=>{
                             review.tips 
                             ? (
                                 <div>
-                                    {review.tips} sol
+                                    {review.tips} Sol
                                 </div>
                             )
                             : (
@@ -91,7 +86,7 @@ const ReviewItem = ({review}:{review: Review})=>{
                     </button>
                 </Popover>
 
-                <Popover content={(<CopySection text={window.location.href} />)} trigger={["click", "hover"]} title="Copy link">
+                <Popover content={(<CopySection text={window.location.href+"#"+review.id} />)} trigger={["click", "hover"]} title="Copy link">
                     <button className={actionsClassNames}>
                         <FaShare  className="mr-2"/>
                         Share
