@@ -1,8 +1,7 @@
 "use client"
 
 import getProjectsFromApi from "@/data/project_repo";
-import Project from "@/data/project_model";
-import { createContext, ReactNode, useEffect, useLayoutEffect, useState } from "react";
+import {  ReactNode, useEffect, useState } from "react";
 import { ProjectContext, ProjectContextProps } from "./project_context";
 
 

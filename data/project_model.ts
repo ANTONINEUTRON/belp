@@ -1,5 +1,3 @@
-"use client"
-
 interface ProfileType {
     id: string;
     name: string;
