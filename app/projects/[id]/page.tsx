@@ -49,7 +49,7 @@ const OpenProjects = ({ params }: { params: { id: string } })=>{
         </div>
     )
     : (
-        <div className="md:m-14 mx-2 mt-24">
+        <div className="md:mt-8 mx-2 mt-10">
             {/* Overview of the project */}
             <div>
                 <div className="flex justify-between">

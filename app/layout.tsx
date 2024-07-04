@@ -23,6 +23,12 @@ export default function RootLayout({
             <div className='container m-auto'>
               {children}
             </div>
+
+            <footer className='flex justify-center mt-10'>
+              <div>
+                &#169; antoni
+              </div>
+            </footer>
           </body>
         </html>
       </ProjectProviders>

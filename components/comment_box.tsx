@@ -73,7 +73,7 @@ export const AddCommentButton = (
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <div className="fixed bottom-16 right-16 flex flex-col items-end">
+        <div className="fixed md:bottom-16 bottom-8 md:right-12 right-4 flex flex-col items-end">
             {
                 isOpen && (
                     <div className="bg-primary p-3 border rounded-lg mr-10">
