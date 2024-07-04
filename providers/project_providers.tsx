@@ -46,7 +46,6 @@ const ProjectProviders: React.FC<ProjectProvidersProps> = ({children})=>{
                     isLoadingMore: false,
                 });
                 
-                console.log(reason);
             }
         );
     }
@@ -69,7 +68,6 @@ const ProjectProviders: React.FC<ProjectProvidersProps> = ({children})=>{
                     ...projectState,
                     errorMessage: "An error occured while fetching projects",
                 });
-                console.log(reason);
             }
         );
     },

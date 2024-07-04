@@ -23,7 +23,6 @@ const SearchField = ()=>{
 
                 setQueryResponse(results.profiles);
             } catch (error) {
-                console.log(error);
                 setErrorMsg("An error occurred while searching. Try again");
             }
         }

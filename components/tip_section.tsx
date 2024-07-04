@@ -62,8 +62,6 @@ const TipSection = ({review}:{review: Review})=>{
                 tips: tipAmount + review.tips,
             });
         } catch (error) {
-            console.log(error);
-
             setErrorMessage("Transaction was interrupted, please try again");
 
         }

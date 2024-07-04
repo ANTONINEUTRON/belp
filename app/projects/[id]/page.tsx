@@ -25,8 +25,7 @@ const OpenProjects = ({ params }: { params: { id: string } })=>{
             setProject(projet[0]);
         },
         (reason)=>{
-            setErrorMsg("Couldn't fetch project! Might be a connection. Try refreshing the page")
-            console.log(reason);
+            setErrorMsg("Couldn't fetch project! Might be a connection. Try refreshing the page");
         });
     },[]);
 
