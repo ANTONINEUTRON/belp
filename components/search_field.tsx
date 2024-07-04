@@ -4,6 +4,7 @@ import Link from "next/link";
 import { FormEvent, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
+import { Modal } from "antd";
 
 const SearchField = ()=>{
     const [isSearching, setIsSearching] = useState(false);
@@ -34,10 +35,76 @@ const SearchField = ()=>{
         setQueryResponse(null);
     }
 
+    const popOverContent = (
+        <div>
+            {
+                isSearching && (
+                    queryResponse
+                        ? (
+                            <div className="mt-4 rounded-xl p-3 bg-inherit w-full">
+                                {/* <div className="flex justify-end">
+                                    <button onClick={() => resetSearchState()}>
+                                        <IoClose className="text-secondary" size={40} />
+                                    </button>
+                                </div> */}
+                                {
+                                    queryResponse.map((result, index) => (
+                                        <Link
+                                            key={index}
+                                            href={"/projects/" + result.id}
+                                            onClick={() => resetSearchState()}>
+                                            <div className="pt-3">
+                                                {result.logo && (
+                                                    <img
+                                                        src={result.logo}
+                                                        width={100}
+                                                        height={100}
+                                                        className="py-4" />
+                                                )}
+
+                                                <div className="font-bold text-lg">
+                                                    {result.name}
+                                                </div>
+                                                <div className="line-clamp-2">
+                                                    {result.description}
+                                                </div>
+                                                <hr className="my-2" />
+                                            </div>
+                                        </Link>
+                                    ))
+                                }
+                            </div>
+                        )
+                        : (
+                            <div className="mt-2   p-3 w-full">
+                                {
+                                    errorMsg
+                                        ? (
+                                            <div className="text-lg flex flex-col items-center">
+                                                {errorMsg}
+                                            </div>
+                                        )
+                                        : isSearching ? (
+                                            <div>
+                                                Not found
+                                            </div>
+                                        ):(
+                                            <div>
+                                                Loading Search Result...
+                                            </div>
+                                        )
+                                }
+                            </div>
+                        )
+                )
+            }
+        </div>
+    );
+
     return (
         <div className="w-full py-3 bg-inherit ">
             <div className="bg-inherit w-full border rounded-lg flex justify-between p-1 items-center">
-                <div>
+                <div className="mx-2">
                     <FaSearch />
                 </div>
                 <form onSubmit={(e)=>{handleSearch(e)}} className="w-full flex">
@@ -50,72 +117,11 @@ const SearchField = ()=>{
                     <button type="submit">
                     </button>
                 </form> 
-                
-            </div>   
-            {
-                isSearching && (
-                    queryResponse
-                        ? (
-                            <div className="absolute mt-4 rounded-xl p-3 bg-inherit md:w-2/5 w-full">
-                                <div className="flex justify-end">
-                                    <button onClick={()=>resetSearchState()}>
-                                        <IoClose className="text-secondary" size={40}/>
-                                    </button>
-                                </div> 
-                                {
-                                    queryResponse.map((result,index)=>(
-                                        <Link 
-                                            key={index} 
-                                            href={"/projects/"+result.id} 
-                                            onClick={()=>resetSearchState()}>
-                                            <div className="pt-3">
-                                                {result.logo && (
-                                                    <img 
-                                                        src={result.logo}
-                                                        width={100}
-                                                        height={100}
-                                                        className="py-4"/>
-                                                )}
-                                                
-                                                <div className="font-bold text-lg">
-                                                    {result.name}
-                                                </div>
-                                                <div className="line-clamp-2">
-                                                    {result.description}
-                                                </div>
-                                                <hr className="my-2"/>
-                                            </div>
-                                        </Link>
-                                    ))
-                                }
-                            </div>
-                        )
-                        : (
-                            <div className="absolute mt-2 bg-primary rounded-xl p-3 md:w-2/5 w-full">
-                                {
-                                    errorMsg
-                                    ? (
-                                        <div className="text-lg flex flex-col items-center">
-                                            <div className="flex justify-end w-full">
-                                                <button onClick={() => resetSearchState()}>
-                                                    <IoClose className="text-tertiary" size={40} />
-                                                </button>
-                                            </div>
-                                            {errorMsg}
-                                        </div>
-                                    )
-                                    : (
-                                        <div>
-                                            Loading Search Result...
-                                        </div>
-                                    )
-                                }
-                            </div>
-                        )
-                )
-                
-                    
-            }
+                <Modal title="Search result" open={isSearching} onCancel={()=>resetSearchState()} footer={<div></div>}>
+                    {popOverContent}
+                </Modal>
+            </div>  
+            
         </div>
     )
 }

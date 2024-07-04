@@ -22,11 +22,12 @@ export const getAProject = async(projectId: String) : Promise<Project[]>=>{
 }
 
 export const searchForProject = async (query: string): Promise<SearchResult>=>{
-    //
-    //
-    const url = BASE_URL+"/?q="+query;
+  
+  const url = "https://corsproxy.io/?https://search.thegrid.id/?q="+query;
+console.log(url);
 
     let res = await axios.get(url);
+    console.log(res);
     
     return res.data.body.search_result;
 }
