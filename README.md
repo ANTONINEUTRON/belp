@@ -1,4 +1,4 @@
-# Detailed Documentation for Belp - Blockchain hELP
+# Documentation for Belp
 
 ## Overview
 
