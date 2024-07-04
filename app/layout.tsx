@@ -5,8 +5,8 @@ import ProjectProviders from '@/providers/project_providers'
 import AppWalletProviders from '@/providers/app_wallet_providers'
 
 export const metadata = {
-  title: 'BELP - Trust on solana projects',
-  description: 'This app facilitates trust on solana',
+  title: 'BELP -  Your Gateway to Solana Project Insights and Reviews',
+  description: 'Discover, review, and gain insights on Solana-based projects. Our web-based dApp, built with Next.js, leverages AI to provide comprehensive project insights and allows users to leave and share reviews.',
 }
 
 export default function RootLayout({
