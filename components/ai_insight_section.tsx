@@ -56,7 +56,7 @@ const AIInsightItem = ({aiInsightModel}: {aiInsightModel: AIInsightModel})=>{
 
     return (
         <div>
-            <div onClick={(e)=>toggleView()} className="flex justify-between items-center md:text-xl bg-tertiary p-2 rounded-md">
+            <div onClick={(e)=>toggleView()} className="flex text-white justify-between items-center md:text-xl bg-tertiary p-2 rounded-md">
                 <div>
                     {aiInsightModel.title}
                 </div>
@@ -75,7 +75,7 @@ const AIInsightItem = ({aiInsightModel}: {aiInsightModel: AIInsightModel})=>{
             {
                 isOpened && aiResponse && (
                         <div className="m-2 pl-8">
-                            <Markdown>
+                            <Markdown className="">
                                 {aiResponse}
                             </Markdown>
                         </div>

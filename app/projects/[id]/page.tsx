@@ -97,7 +97,7 @@ const OpenProjects = ({ params }: { params: { id: string } })=>{
                 <div className="font-bold text-2xl">
                     <Tabs
                         type="card"
-                        tabBarStyle={{textDecorationColor: `#ff5656`}}
+                        className="dark:text-white text-black"
                         items={
                             [
                                 {
