@@ -108,6 +108,7 @@ const SearchField = ()=>{
                 </div>
                 <form onSubmit={(e)=>{handleSearch(e)}} className="w-full flex">
                     <input 
+                        type="search"
                         className='w-full h-10 rounded-lg p-2' 
                         placeholder='Search a blockchain project'
                         onChange={(e) => {

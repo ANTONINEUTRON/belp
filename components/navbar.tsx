@@ -13,7 +13,7 @@ export default function Navbar() {
 
 
   return (
-    <div className='sticky  top-0 md:left-0 md:right-0 left-2 right-2 bg-inherit flex justify-center'>
+    <div className='sticky  top-0 md:left-0 md:right-0 bg-inherit flex justify-center px-2 md:px-0'>
       <nav className="h-14 container flex md:flex-row flex-wrap items-center justify-between bg-inherit pt-2 md:pt-0">
             <Link
               className="text-xl font-bold leading-relaxed flex items-center uppercase text-primary hover:text-white"
