@@ -9,8 +9,9 @@ import { Modal } from "antd";
 const SearchField = ()=>{
     const [isSearching, setIsSearching] = useState(false);
     const [query, setQuery] = useState("");
-    const [queryResponse, setQueryResponse] = useState<SearchProfiles[] | null>()
+    const [queryResponse, setQueryResponse] = useState<SearchProfiles[] | null>(null)
     const [errorMsg, setErrorMsg] = useState<string>("")
+    const [isqueryEmpty, setIsQueryEmpty] = useState(false);
 
 
     const handleSearch = async (event: FormEvent)=>{
@@ -20,8 +21,11 @@ const SearchField = ()=>{
             setIsSearching(true);
             try {
                 let results: SearchResult = await searchForProject(query.trim());
-
+                console.log(results);
                 setQueryResponse(results.profiles);
+                if(results.profiles == null){
+                    setIsQueryEmpty(true);
+                }
             } catch (error) {
                 setErrorMsg("An error occurred while searching. Try again");
             }
@@ -32,6 +36,8 @@ const SearchField = ()=>{
         setIsSearching(false);
         setQuery("");
         setQueryResponse(null);
+        setIsQueryEmpty(false);
+        setErrorMsg("");
     }
 
     const popOverContent = (
@@ -83,15 +89,18 @@ const SearchField = ()=>{
                                                 {errorMsg}
                                             </div>
                                         )
-                                        : isSearching ? (
-                                            <div>
-                                                Not found
-                                            </div>
-                                        ):(
+                                        : !isqueryEmpty && (
                                             <div>
                                                 Loading Search Result...
                                             </div>
                                         )
+                                }
+                                {
+                                    isqueryEmpty &&  (
+                                        <div>
+                                            Not found
+                                        </div>
+                                    )
                                 }
                             </div>
                         )
