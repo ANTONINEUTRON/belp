@@ -26,7 +26,7 @@ export default function RootLayout({
 
             <footer className='flex justify-center mt-10'>
               <div>
-                &#169; antoni
+                &#169; Antoni. All rights reservec
               </div>
             </footer>
           </body>
