@@ -24,7 +24,7 @@ const CommentBox = (
         }
         //if walletAddress is not empty
         if(!publicKey){
-            setErrorText("You need to connect your wallet before you drop a review <br />Your wallet address is your identity!");
+            setErrorText("You need to connect your wallet before you drop a review. \nYour wallet address is your identity!");
             return;
         }
 
@@ -53,7 +53,7 @@ const CommentBox = (
 
     return (
         <div className="relative  flex flex-col items-center justify-center">
-            <div className="flex justify-center">
+            <div className="flex w-96 justify-center">
                 {errorText}
             </div>
             <br />
